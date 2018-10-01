@@ -22,20 +22,20 @@ const Item = props => (
 );
 
 Item.propTypes = {
-  id: PropTypes.string.isRequired,
+//  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   imageURI: PropTypes.string.isRequired, 
   type: PropTypes.string.isRequired,
   side: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   description: PropTypes.string.isRequired,
   pickuptime: PropTypes.string.isRequired,
-  handleLike: PropTypes.func.isRequired,
+//  handleLike: PropTypes.func.isRequired,
   price: PropTypes.string.isRequired,
 //  handleUnlist: PropTypes.func.isRequired,
 //  handleReport: PropTypes.func.isRequired,
-  timestamp: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
+  timestamp: PropTypes.instanceOf(Date).isRequired,
+  location: PropTypes.object.isRequired,
   expires: PropTypes.instanceOf(Date).isRequired,
 };
 

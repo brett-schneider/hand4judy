@@ -1,6 +1,6 @@
 // Browse.js
 import React, { Component } from 'react';
-import ReactMarkdown from 'react-markdown';
+//import ReactMarkdown from 'react-markdown';
 import TypeSelector from './TypeSelector';
 import ListTile from './ListTile';
 import OrderBy from './OrderBy';
@@ -10,7 +10,9 @@ import ItemTiles from './ItemTiles';
 class Browse extends Component {
   constructor(props) {
     super(props);
-    const show = this.props.isList ? <ItemList items={ this.props.items } /> : <ItemTiles items={ this.props.items } />;
+    this.state = {
+      show: this.props.isList ? <ItemList items={ this.props.items } /> : <ItemTiles items={ this.props.items } />,
+    }
   }
   render() {
     return (
@@ -20,7 +22,7 @@ class Browse extends Component {
           <ListTile />
           <OrderBy />
         </div>
-        { this.show }
+        { this.state.show }
       </div>
     );
   };

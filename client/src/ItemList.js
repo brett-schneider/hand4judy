@@ -1,6 +1,6 @@
 // ItemList.js
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
+//import ReactMarkdown from 'react-markdown';
 import ListItem from './ListItem';
 
 const ItemList = props => {

@@ -1,6 +1,6 @@
 // MainFrame.js
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
+//import ReactMarkdown from 'react-markdown';
 import Browse from './Browse';
 
 const MainFrame = props => (

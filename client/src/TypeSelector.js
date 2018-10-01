@@ -1,12 +1,16 @@
 // TypeSelector.js
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
+//import ReactMarkdown from 'react-markdown';
 
-const TypeSelector = props => {
+const TypeSelector = (props) => {
   const typeSelectorNodes = props.types.map(t => (
-    <a onClick={() => {t.handleSelect(t.id); }}>{ t.name }</a>
+    <a key={t._id} onClick={() => {t.handleSelect(t._id); }}>{ t.name }</a>
   ));
-  return ( typeSelectorNodes );
+  return ( 
+    <div className="typeSelect">
+      { typeSelectorNodes }
+    </div>
+  );
 }
 
 export default TypeSelector;

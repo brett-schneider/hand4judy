@@ -1,13 +1,20 @@
 // data.js
+const user = [
+	{ _id: 1, name: "Judy", location: { lat: 51.530869, lon: -0.061242 }},
+];
+
 const data = [
-  { _id: 1, title: "Bugaboo", imageURI: 'https://picsum.photos/320?random=${props.id}', 
-    type: "Outdoor", side: "offer", user: "Judy", timestamp: new Date(), price: "350 £",
+  { _id: 1, title: "Bugaboo", imageURI: 'https://picsum.photos/320?random=1', 
+    type: "Outdoor", side: "offer", user: user[0], description: "a Bugaboo buggy", 
+    pickuptime: "after 5pm", timestamp: new Date(), price: "350 £",
     location: { lat: 51.482488, lon: 0.005893 } , expires: new Date() },
-  { _id: 1, title: "Baby Formula", imageURI: 'https://picsum.photos/320?random=${props.id}', 
-    type: "Food", side: "offer", user: "Judy", timestamp: new Date(), price: "free",
+  { _id: 2, title: "Baby Formula", imageURI: 'https://picsum.photos/320?random=2', 
+    type: "Food", side: "offer", user: user[0], description: "sma progress 1", 
+    pickuptime: "after 5pm", timestamp: new Date(), price: "free", 
     location: { lat: 51.482488, lon: 0.005893 } , expires: new Date() },
-  { _id: 1, title: "Ball", imageURI: 'https://picsum.photos/320?random=${props.id}', 
-    type: "Toys", side: "offer", user: "Judy", timestamp: new Date(), price: "5 £",
+  { _id: 3, title: "Ball", imageURI: 'https://picsum.photos/320?random=3', 
+    type: "Toys", side: "offer", user: user[0], description: "rubber ball with polka dots", 
+    pickuptime: "after 5pm", timestamp: new Date(), price: "5 £",
     location: { lat: 51.482488, lon: 0.005893 } , expires: new Date() },
 ];
 
@@ -40,5 +47,5 @@ Item.propTypes = {
 };
 */
 
-export { types };
+export { types, user };
 export default data;

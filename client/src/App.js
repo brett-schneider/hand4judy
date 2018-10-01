@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import data from './data';
-import Item from './Item';
+import data, { types } from './data';
+// /import Item from './Item';
 import MainFrame from './MainFrame';
-import types from './data';
 import './App.css';
 
 class App extends Component {
