@@ -21,7 +21,11 @@ const ItemList = props => {
 		expires={i.expires}
 	/>
   ));
-  return ( itemListNodes );
+  return ( 
+  	<div className="ItemList">
+  		{ itemListNodes }
+  	</div>
+  );
 }
 
 export default ItemList;

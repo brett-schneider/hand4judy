@@ -17,7 +17,7 @@ class Browse extends Component {
   render() {
     return (
       <div className="browse">
-        <div className="itemType">
+        <div className="browse-menu">
           <TypeSelector types={ this.props.types } />
           <ListTile />
           <OrderBy />

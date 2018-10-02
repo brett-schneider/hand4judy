@@ -3,7 +3,7 @@ import React from 'react';
 //import moment from 'moment';
 import PropTypes from 'prop-types';
 //import ReactMarkdown from 'react-markdown';
-import UserSmol from './User';
+import { UserSmol } from './User';
 import Distance from './Distance';
 
 const ListItem = props => (
