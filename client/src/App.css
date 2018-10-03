@@ -37,9 +37,9 @@
   flex-flow: column nowrap;
   align-items: center;
   justify-content: space-between;
-
 }
-
+.mainFrame {
+}
 .logo {
   float: left;
   left: 5px;
@@ -50,7 +50,6 @@
   left: 5px;
   top: 5px;
 }
-
 .menu h3 {
   float: left;
   left: 5px;
@@ -58,32 +57,22 @@
   padding: 5px;
 }
 .content {
-  float: center;
+}
+.browse {
+  border: 1px solid yellow;
+  box-sizing: border-box;
+  padding: 25px;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-between;
 }
 .browse-menu {
-  clear: center;
-}
-.ItemList {
-  clear: center;
-}
-.typeSelect {
-  float: left;
-  padding: 5px;
-  border: 1px solid black;
-}
+  border: 1px solid brown;
 
-.listTile {
-  float: left;
-  padding: 5px;
-  border: 1px solid black;
 }
-
-.orderBy {
-  float: left;
-  padding: 5px;
-  border: 1px solid black;
-}
-
 .typeSelect a {
   padding: 5px;
 }
@@ -93,10 +82,57 @@
 .orderBy a {
   padding: 5px;
 }
+.typeSelect {
+  float: left;
+  padding: 5px;
+  border: 1px solid black;
+}
+.listTile {
+  float: left;
+  padding: 5px;
+  border: 1px solid black;
+}
+.orderBy {
+  float: left;
+  padding: 5px;
+  border: 1px solid black;
+}
+.ItemList {
+  padding: 25px;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
 .listItem {
   width: 100%;
   border: 1px solid green;
+  clear: center;
+}
+.listItem img {
+  float: left;
+}
+.listItem {
+  width: 100%;
+  border: 1px solid green;
+  clear: center;
 }
 .userSmol {
   float: left;
+  border: 1px solid blue;
+  align-self: top;
+  width: 45%;
+}
+.distance {
+  border: 1px solid red;
+  float: right;
+  width: 45%
+}
+.distance img {
+  float: left;
+}
+.distance h1 {
+  float: right;
 }

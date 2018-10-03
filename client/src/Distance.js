@@ -22,7 +22,8 @@ const Distance = (props) => {
       Math.sin(dLon/2) * Math.sin(dLon/2); 
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     var d = R * c; // Distance in km
-    return d;
+//    return Math.round(d,2);
+    return d.toPrecision(3);
   };
 
   return (
