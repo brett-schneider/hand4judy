@@ -6,17 +6,17 @@ import React from 'react';
 
 const UserSmol = props => (
 	<div className="userSmol">
-	    <img alt={ props.user.name } className="userImageSmol" src={`https://picsum.photos/72?random=${props.id}`} />
-	    <h3>{ props.user.name }</h3>
-	    <h3>***star rating***</h3>
+	    <img alt={ props.user.name } className="userImageSmol" src={`https://picsum.photos/36?random=${props.id}`} />
+	    <p>{ props.user.name }</p>
+	    <p>***star rating***</p>
 	</div>
 );
 
 const User = props => (
 	<div className="user">
 	    <img alt={ props.user.name } className="userImageSmol" src={`https://picsum.photos/216?random=${props.id}`} />
-	    <h1>{ props.user.name }</h1>
-	    <h1>***star rating***</h1>
+	    <p>{ props.user.name }</p>
+	    <p>***star rating***</p>
 	</div>
 );
 export { UserSmol };

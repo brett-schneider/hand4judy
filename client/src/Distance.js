@@ -29,7 +29,7 @@ const Distance = (props) => {
   return (
     <div className="distance">
       <img alt="pin" className="distanceItem" src={`https://picsum.photos/36?random=${props.id}`} />
-      <h1>{ calcDistance(props.user, props.item) } km</h1>
+      <p>{ calcDistance(props.user, props.item) } km</p>
     </div>
   );
 };

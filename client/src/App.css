@@ -125,6 +125,9 @@
   align-self: top;
   width: 45%;
 }
+.userSmol p {
+  font-size: 8pt;
+}
 .distance {
   border: 1px solid red;
   float: right;

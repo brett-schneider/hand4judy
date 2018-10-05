@@ -19,8 +19,8 @@ class Browse extends Component {
       <div className="browse">
         <div className="browse-menu">
           <TypeSelector types={ this.props.types } />
-          <ListTile />
-          <OrderBy />
+          <ListTile handleListView={ this.props.handleListView } handleTileView={ this.props.handleTileView } />
+          <OrderBy handleOrderByExpiry={ this.props.handleOrderByExpiry } handleOrderByDistance={ this.props.handleOrderByDistance } />
         </div>
         { this.state.show }
       </div>
