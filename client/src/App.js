@@ -13,12 +13,10 @@ class App extends Component {
                    orderByExpiry: true };
   }
   handleTileView = (e) => {
-    this.setState( { isList: false } );
-    alert(this.state.isList);
+    this.setState( { isList: false }, () => console.log(this.state.isList) );
   }
   handleListView = () => {
     this.setState( { isList: true } );
-    alert(this.state.isList);
   }
   handleOrderByExpiry = () => {
     this.setState( { orderByExpiry: true } );
@@ -27,7 +25,7 @@ class App extends Component {
     this.setState( { orderByExpiry: false } );
   }
   handleTypeSelect = (t) => {
-    this.setState( { typeSelected: t.id });
+    this.setState( { typeSelected: t }, () => console.log(this.state.typeSelected));
   }
   render() {
     return (
@@ -45,6 +43,7 @@ class App extends Component {
                      handleOrderByExpiry={ this.handleOrderByExpiry }
                      handleOrderByDistance={ this.handleOrderByDistance }
                      handleTypeSelect={ this.handleTypeSelect }
+                     typeSelected={ this.state.typeSelected }
           />
         </div>
       </div>

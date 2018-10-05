@@ -4,7 +4,7 @@ import React from 'react';
 
 const TypeSelector = (props) => {
   const typeSelectorNodes = props.types.map(t => (
-    <a key={t._id} onClick={() => {t.handleSelect(t._id); }}>{ t.name }</a>
+    <a key={t._id} onClick={() => { props.handleTypeSelect(t._id); }}>{ t.name }</a>
   ));
   return ( 
     <div className="typeSelect">
