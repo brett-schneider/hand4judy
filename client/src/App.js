@@ -8,10 +8,10 @@ import './App.css';
 class App extends Component {
   constructor() {
     super();
-    this.state = { data: data, 
+    this.state = { items: data, 
                    isList: true, 
                    orderByExpiry: true,
-                   types: types
+                   types: types,
                    menu: [ "browse", "add" , "messages" , "my handd.it" ],
                    menuActive: 0 };
   }
@@ -41,15 +41,12 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div className="container">
-          <MainFrame types={ types } 
-                     items={ data } 
-                     isList={ this.state.isList } 
-                     handleListView={ this.handleListView } 
+          <MainFrame handleListView={ this.handleListView } 
                      handleTileView={ this.handleTileView } 
                      handleOrderByExpiry={ this.handleOrderByExpiry }
                      handleOrderByDistance={ this.handleOrderByDistance }
                      handleTypeSelect={ this.handleTypeSelect }
-                     typeSelected={ this.state.typeSelected }
+                     { ...this.state }
           />
         </div>
       </div>

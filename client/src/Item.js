@@ -39,4 +39,22 @@ Item.propTypes = {
   expiry: PropTypes.instanceOf(Date).isRequired,
 };
 
+Item.defaultProps = {
+//  id: PropTypes.string.isRequired,
+  title: "title",
+  imageURI: 'https://picsum.photos/320?random=1', 
+  type: "Outdoor",
+  side: "offer", //bid
+  user: { _id: 9, name: "xtp", location: { lat: 52.5331358, lon: 13.4019551 }},
+  description: "",
+  pickuptime: "PropTypes.string.isRequired",
+//  handleLike: PropTypes.func.isRequired,
+  price: "0 £",
+//  handleUnlist: PropTypes.func.isRequired,
+//  handleReport: PropTypes.func.isRequired,
+  timestamp: new Date(),
+  location: { lat: 52.5331358, lon: 13.4019551 },
+  expiry: new Date(),
+};
+
 export default Item;
