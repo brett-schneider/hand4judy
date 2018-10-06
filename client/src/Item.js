@@ -36,7 +36,7 @@ Item.propTypes = {
 //  handleReport: PropTypes.func.isRequired,
   timestamp: PropTypes.instanceOf(Date).isRequired,
   location: PropTypes.object.isRequired,
-  expires: PropTypes.instanceOf(Date).isRequired,
+  expiry: PropTypes.instanceOf(Date).isRequired,
 };
 
 export default Item;

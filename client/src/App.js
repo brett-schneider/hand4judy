@@ -8,24 +8,30 @@ import './App.css';
 class App extends Component {
   constructor() {
     super();
-    this.state = { data: [], 
+    this.state = { data: data, 
                    isList: true, 
-                   orderByExpiry: true };
+                   orderByExpiry: true,
+                   types: types
+                   menu: [ "browse", "add" , "messages" , "my handd.it" ],
+                   menuActive: 0 };
   }
   handleTileView = (e) => {
-    this.setState( { isList: false }, () => console.log(this.state.isList) );
+    this.setState({ isList: false }, () => console.log(this.state.isList));
   }
   handleListView = () => {
-    this.setState( { isList: true } );
+    this.setState({ isList: true });
   }
   handleOrderByExpiry = () => {
-    this.setState( { orderByExpiry: true } );
+    this.setState({ orderByExpiry: true });
   }
   handleOrderByDistance = () => {
-    this.setState( { orderByExpiry: false } );
+    this.setState({ orderByExpiry: false });
   }
   handleTypeSelect = (t) => {
-    this.setState( { typeSelected: t }, () => console.log(this.state.typeSelected));
+    this.setState({ typeSelected: t }, () => console.log(this.state.typeSelected));
+  }
+  handleMenuSelect = (m) => {
+    this.setState({ menuActive: m }, () => console.log(this.state.menuActive));
   }
   render() {
     return (

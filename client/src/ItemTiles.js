@@ -16,7 +16,7 @@ const ItemTiles = (props) => {
 		handleLike={i.handleLike}
 		timestamp={i.timestamp}
 		location={i.location}
-		expires={i.expires}
+		expiry={i.expiry}
 	/>
   ));
   return ( itemTileNodes );

@@ -7,15 +7,15 @@ const data = [
   { _id: 1, title: "Bugaboo", imageURI: 'https://picsum.photos/320?random=1', 
     type: "Outdoor", side: "offer", user: user[0], description: "a Bugaboo buggy", 
     pickuptime: "after 5pm", timestamp: new Date(), price: "350 £",
-    location: { lat: 51.482488, lon: 0.005893 } , expires: new Date() },
+    location: { lat: 51.482488, lon: 0.005893 } , expiry: new Date() },
   { _id: 2, title: "Baby Formula", imageURI: 'https://picsum.photos/320?random=2', 
     type: "Food", side: "offer", user: user[0], description: "sma progress 1", 
     pickuptime: "after 5pm", timestamp: new Date(), price: "free", 
-    location: { lat: 51.482488, lon: 0.005893 } , expires: new Date() },
+    location: { lat: 51.482488, lon: 0.005893 } , expiry: new Date() },
   { _id: 3, title: "Ball", imageURI: 'https://picsum.photos/320?random=3', 
     type: "Toys", side: "offer", user: user[0], description: "rubber ball with polka dots", 
     pickuptime: "after 5pm", timestamp: new Date(), price: "5 £",
-    location: { lat: 51.482488, lon: 0.005893 } , expires: new Date() },
+    location: { lat: 51.482488, lon: 0.005893 } , expiry: new Date() },
 ];
 
 const types = [
@@ -43,7 +43,7 @@ Item.propTypes = {
 //  handleReport: PropTypes.func.isRequired,
   timestamp: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
-  expires: PropTypes.datetime.isRequired,
+  expiry: PropTypes.datetime.isRequired,
 };
 */
 
