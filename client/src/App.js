@@ -12,7 +12,11 @@ class App extends Component {
                    isList: true, 
                    orderByExpiry: true,
                    types: types,
-                   menu: [ "browse", "add" , "messages" , "my handd.it" ],
+                   menu: [ { _id:0, text: "browse", tag: "Browse"},
+                           { _id:1, text: "add", tag: "ItemNew" },
+                           { _id:2, text: "messages", tag: "Messages" },
+                           { _id:3, text: "my handd.it", tag: "Profile"}
+                         ],
                    menuActive: 0 };
   }
   handleTileView = (e) => {
@@ -33,6 +37,8 @@ class App extends Component {
   handleMenuSelect = (m) => {
     this.setState({ menuActive: m }, () => console.log(this.state.menuActive));
   }
+//  handleUnlistItem = (i) => {
+//  }
   render() {
     return (
       <div className="App">
@@ -46,6 +52,7 @@ class App extends Component {
                      handleOrderByExpiry={ this.handleOrderByExpiry }
                      handleOrderByDistance={ this.handleOrderByDistance }
                      handleTypeSelect={ this.handleTypeSelect }
+                     handleMenuSelect={ this.handleMenuSelect }
                      { ...this.state }
           />
         </div>
