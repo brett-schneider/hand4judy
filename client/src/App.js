@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import data, { types } from './data';
+import { types } from './data';
 // /import Item from './Item';
 import MainFrame from './MainFrame';
 import './App.css';
@@ -8,7 +8,7 @@ import './App.css';
 class App extends Component {
   constructor() {
     super();
-    this.state = { items: data, 
+    this.state = { items: [], 
                    isList: true, 
                    orderByExpiry: true,
                    types: types,
@@ -18,6 +18,7 @@ class App extends Component {
                            { _id:3, text: "my handd.it", tag: "Profile"}
                          ],
                    menuActive: 0 };
+    this.pollInterval = null;
   }
   handleTileView = (e) => {
     this.setState({ isList: false }, () => console.log(this.state.isList));
@@ -39,6 +40,29 @@ class App extends Component {
   }
 //  handleUnlistItem = (i) => {
 //  }
+  componentDidMount() {
+    this.loadCommentsFromServer();
+    if (!this.pollInterval) {
+      this.pollInterval = setInterval(this.loadCommentsFromServer, 2000);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.pollInterval) clearInterval(this.pollInterval);
+    this.pollInterval = null;
+  }
+
+  loadCommentsFromServer = () => {
+    // fetch returns a promise. If you are not familiar with promises, see
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+    fetch('/api/item/')
+      .then(data => data.json())
+      .then((res) => {
+        if (!res.success) this.setState({ error: res.error });
+        else this.setState({ items: res.data });
+      });
+  }
+
   render() {
     return (
       <div className="App">
