@@ -7,88 +7,102 @@ const NewItem = (props) => {
   	<option key={t._id} value={ t._id }>{ t.name }</option>
   ));
   return (
-  	<form onSubmit={ props.submitNewItem }>
+  	<form onSubmit={ (i) => { props.handleSubmitItem(i) }}>
   	  <p>placeholder for image upload</p>
   	  <input type="text" 
-  	         name="title"
+  	         name="rtitle"
   	         placeholder="Title..."
-//  	         value={ props.title }
-  	         onChange={ props.hanldeChangeTitle }
+  	         value={ props.formdata.rtitle }
+  	         onChange={ (e) => { props.handleFormChange(e) }}
   	  />
-  	  <select name="type"
-  	          onChange={ props.hanldeChangeType }>
+  	  <select name="rtype"
+  	          onChange={ (e) => { props.handleFormChange(e) }}
+              value={ props.formdata.rtype }
+      >
+
   	    { typeSelect }
   	  </select>
-  	  <select name="side"
-  	          onChange={ props.hanldeChangeType }>
+  	  <select name="rside"
+  	          onChange={ (e) => { props.handleFormChange(e) }}
+              value={ props.formdata.rside }
+      >
   		<option value="offer">offer</option>
 	  	<option value="bid">bid</option>
   	  </select>
   	  <input type="text" 
-  	         name="user"
-  	         placeholder="your name... this will be replaced by login in t3h future"
-//  	         value={ props.user }
-  	         onChange={ props.hanldeChangeUser }
+  	         name="rusername"
+  	         placeholder="your name... this will be replaced by login in t3h future. and some hidden input type"
+  	         value={ props.formdata.rusername }
+  	         onChange={ (e) => { props.handleFormChange(e) }}
   	  />
   	  <input type="text" 
-  	         name="description"
+  	         name="rdescription"
   	         placeholder="Describe in greater detail what your business is..."
-//  	         value={ props.description }
-  	         onChange={ props.hanldeChangeDescription }
+  	         value={ props.formdata.rdescription }
+  	         onChange={ (e) => { props.handleFormChange(e) }}
   	  />
   	  <input type="text" 
-  	         name="pickuptime"
+  	         name="rpickuptime"
   	         placeholder="When it's convenient for you..."
-//  	         value={ props.pickuptime }
-  	         onChange={ props.hanldeChangePickuptime }
+  	         value={ props.formdata.rpickuptime }
+  	         onChange={ (e) => { props.handleFormChange(e) }}
   	  />
   	  <input type="text" 
-  	         name="price"
+  	         name="rprice"
   	         placeholder="Show me the moneh..."
-//  	         value={ props.price }
-  	         onChange={ props.hanldeChangePrice }
+  	         value={ props.formdata.rprice }
+  	         onChange={ (e) => { props.handleFormChange(e) }}
   	  />
   	  <input type="hidden" 
-  	         name="timestamp"
+  	         name="rtimestamp"
   	         value={ new Date() }
   	  />
   	  <input type="numeric" 
-  	         name="lat"
+  	         name="rlocationLat"
   	         placeholder="latitude, will be replaced by google maps"
-//  	         value={ props.location.lat }
-  	         onChange={ props.hanldeChangeLocation }
+  	         value={ props.formdata.rlocationLat }
+  	         onChange={ (e) => { props.handleFormChange(e) }}
   	  />
   	  <input type="numeric" 
-  	         name="lon"
+  	         name="rlocationLon"
   	         placeholder="longitude, will be replaced by google maps"
-//  	         value={ props.location.lon }
-  	         onChange={ props.hanldeChangeLocation }
+  	         value={ props.formdata.rlocationLon }
+  	         onChange={ (e) => { props.handleFormChange(e) }}
   	  />
   	  <input type="date" 
-  	         name="expiry"
-//  	         value={ props.expiry }
-  	         onChange={ props.hanldeChangeExpiry }
+  	         name="rexpiry"
+  	         value={ props.formdata.rexpiry }
+  	         onChange={ (e) => { props.handleFormChange(e) }}
   	  />
+  	  <button type="submit">submit</button>
   	</form>
   );
 };
 
 NewItem.propTypes = {
-//  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  imageURI: PropTypes.string.isRequired, 
-  type: PropTypes.string.isRequired,
-  side: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
-  description: PropTypes.string.isRequired,
-  pickuptime: PropTypes.string.isRequired,
-//  handleLike: PropTypes.func.isRequired,
-  price: PropTypes.string.isRequired,
-//  handleUnlist: PropTypes.func.isRequired,
-//  handleReport: PropTypes.func.isRequired,
-  timestamp: PropTypes.instanceOf(Date).isRequired,
-  location: PropTypes.object.isRequired,
-  expiry: PropTypes.instanceOf(Date).isRequired, // do we need this? few things that are not food expire.
+  formdata: PropTypes.shape({
+//    id: PropTypes.string.isRequired,
+    rtitle: PropTypes.string,
+    rimageURI: PropTypes.string, 
+    rtype: PropTypes.string,
+    rside: PropTypes.string,
+//    ruser: PropTypes.object,
+    rusername: PropTypes.string,
+    rdescription: PropTypes.string,
+    rpickuptime: PropTypes.string,
+//    handleLike: PropTypes.func.isRequired,
+    rprice: PropTypes.string,
+//    handleUnlist: PropTypes.func.isRequired,
+//    handleReport: PropTypes.func.isRequired,
+    rtimestamp: PropTypes.instanceOf(Date),
+//    location: PropTypes.object,
+    rlocationLat: PropTypes.numeric,
+    rlocationLon: PropTypes.numeric,
+//    rexpiry: PropTypes.instanceOf(Date), // do we need this? few things that are not food expire.  	
+    rexpiry: PropTypes.string, // do we need this? few things that are not food expire.  	
+  }),
+  handleSubmitItem: PropTypes.func.isRequired,
+  handleFormChange: PropTypes.func.isRequired,
 };
 
 export default NewItem;

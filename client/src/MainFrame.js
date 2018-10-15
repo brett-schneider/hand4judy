@@ -19,7 +19,7 @@ const MainFrame = (props) => {
       case 0:
         return (<Browse { ...props} />);
       case 1:
-        return (<NewItem { ...props} />);
+        return (<NewItem key="jhgjsgf" { ...props} />);
       case 2:
         return (<Messages { ...props} />);
       case 3:

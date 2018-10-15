@@ -45,7 +45,9 @@ router.post('/item', (req, res) => {
   const userloc = new Location();
   const user = new User();
   // body parser lets us use the req.body
-  const { rimageURI, rtype, rlist, rtitle, ruser, rlocation, rdescription, rpickuptime, rexpiry } = req.body;
+  console.log(req.body);
+  const { rimageURI, rtype, rlist, rtitle, rusername, rlocationLat, rlocationLon, rdescription, rpickuptime, rexpiry } = req.body;
+/*
   if (!rtype || !rlist || !rtitle || !ruser || !rlocation || !expiry) {
     // we should throw an error. we can do this check on the front end
     return res.json({
@@ -53,11 +55,13 @@ router.post('/item', (req, res) => {
       error: 'null: type, list, title, user, location or expire'
     });
   }
-  location.lat = rlocation.lat;
-  location.lon = rlocation.lon;
-  userloc.lat = ruser.location.lat;
-  userloc.lon = ruser.location.lon;
-  user.name = ruser.name;
+*/
+  location.lat = rlocationLat;
+  location.lon = rlocationLon;
+//  userloc.lat = ruser.location.lat;
+//  userloc.lon = ruser.location.lon;
+  user.name = rusername;
+//  user.name = ruser.name;
   user.location = userloc;
   item.imageURI = rimageURI;
   item.type = rtype;
@@ -103,6 +107,40 @@ router.post('/user', (req, res) => {
   });
 });
 
+// update
+router.put('/item/:itemId', (req, res) => {
+  const { itemId } = req.params;
+  if (!itemId) {
+    return res.json({ success: false, error: 'No item id provided' });
+  }
+  Item.findById(itemId, (error, comment) => {
+    if (error) return res.json({ success: false, error });
+    const { rimageURI, rtype, rlist, rtitle, ruser, rlocationLat, rlocationLon, rdescription, rpickuptime, rexpiry } = req.body;
+    if (rimageURI) item.rimageURI = rimageURI;
+    if (rtype) item.rtype = rtype;
+    if (rlist) item.rlist = rlist;
+    if (rtitle) item.rtitle = rtitle;
+    if (ruser) item.ruser = ruser;
+    if (rlocation) item.rlocation = rlocation;
+    if (rpickuptime) item.rpickuptime = rpickuptime;
+    if (rexpiry) item.rexpiry = rexpiry;
+    item.save(error => {
+      if (error) return res.json({ success: false, error });
+      return res.json({ success: true });
+    });
+  });
+});
+// del
+router.delete('/item/:itemId', (req, res) => {
+  const { itemId } = req.params;
+  if (!itemId) {
+    return res.json({ success: false, error: 'No item id provided' });
+  }
+  Comment.remove({ _id: itemId }, (error, comment) => {
+    if (error) return res.json({ success: false, error });
+    return res.json({ success: true });
+  });
+});
 // Use our router configuration when we call /api
 app.use('/api', router);
 
