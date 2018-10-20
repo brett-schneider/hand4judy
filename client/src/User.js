@@ -14,8 +14,6 @@ const UserSmol = props => (
 
 const User = props => (
 	<div className="user">
-	    <img alt={ props.user.name } className="userImageSmol" src={`https://picsum.photos/216?random=${props.id}`} />
-	    <p>{ props.user.name }</p>
 	    <p>***star rating***</p>
 	</div>
 );

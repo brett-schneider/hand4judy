@@ -12,7 +12,8 @@ const Distance = (props) => {
   function calcDistance(l1,l2) {
     // computeDistanceBetween
     // https://stackoverflow.com/questions/18822948/use-google-maps-computedistancebetween-to-get-the-closest-location-returns-nan
-
+    if (typeof l1 === "undefined") return -1;
+    if (typeof l2 === "undefined") return -1;
     var R = 6371; // Radius of the earth in km
     var dLat = deg2rad(l2.lat-l1.lat);  // deg2rad below
     var dLon = deg2rad(l2.lon-l1.lon); 

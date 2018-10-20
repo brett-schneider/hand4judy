@@ -1,16 +1,13 @@
 // Browse.js
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 //import ReactMarkdown from 'react-markdown';
 import BrowseMenu from './BrowseMenu';
-import ItemList from './ItemList';
-import ItemTiles from './ItemTiles';
+import Items from './Items';
 
-class Browse extends Component {
+class Browse extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      show: this.props.isList ? <ItemList items={ this.props.items } /> : <ItemTiles items={ this.props.items } />,
-    }
+    console.log(props);
   }
   render() {
     return (
@@ -18,7 +15,7 @@ class Browse extends Component {
         <div className="browse-menu">
           <BrowseMenu { ...this.props } />
         </div>
-        { this.state.show }
+        <Items items={ this.props.items } isList={ this.props.isList } />
       </div>
     );
   };

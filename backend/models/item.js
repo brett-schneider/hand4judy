@@ -24,7 +24,7 @@ const ItemsSchema = new Schema({
 //	user: { name: String, location: { lat: Number. lon: Number }},
 	description: String, 
 	pickuptime: String, 
-	proce: String,
+	price: String,
 	timestamp: Date,
 	location: LocationSchema, 
 //	location: { lat: Number. lon: Number }, 

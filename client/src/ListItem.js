@@ -18,19 +18,34 @@ const ListItem = props => (
 
 ListItem.propTypes = {
 //  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  imageURI: PropTypes.string.isRequired, 
-  type: PropTypes.string.isRequired,
-  side: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
-  description: PropTypes.string.isRequired,
-  pickuptime: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  imageURI: PropTypes.string, 
+  type: PropTypes.string,
+  side: PropTypes.string,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    location: PropTypes.shape({
+      lat: PropTypes.numeric,
+      lon: PropTypes.numeric,
+    }),
+  }),
+  description: PropTypes.string,
+  pickuptime: PropTypes.string,
 //  handleLike: PropTypes.func.isRequired,
 //  handleUnlist: PropTypes.func.isRequired,
 //  handleReport: PropTypes.func.isRequired,
-  timestamp: PropTypes.instanceOf(Date).isRequired,
-  location: PropTypes.object.isRequired,
-  expiry: PropTypes.instanceOf(Date).isRequired,
+  timestamp: PropTypes.instanceOf(Date),
+  location: PropTypes.object,
+//  expiry: PropTypes.instanceOf(Date).isRequired,
+  expiry: PropTypes.string,
+};
+
+ListItem.defaultProps = {
+  imageURI: 'https://picsum.photos/320?random=1', 
+  user: { _id: 9, name: "xtp", location: { lat: 52.5331358, lon: 13.4019551 }},
+  timestamp: new Date(),
+  location: { lat: 52.5331358, lon: 13.4019551 },
+  expiry: new Date().toString(),
 };
 
 export default ListItem;

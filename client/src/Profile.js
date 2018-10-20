@@ -1,27 +1,31 @@
 // Profile.js
-import React, { Component } from 'react';
+import React from 'react';
 //import ReactMarkdown from 'react-markdown';
 import BrowseMenu from './BrowseMenu';
-import ItemList from './ItemList';
-import ItemTiles from './ItemTiles';
+import Items from './Items';
+import PropTypes from 'prop-types';
 
-class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: this.props.isList ? <ItemList items={ this.props.items } /> : <ItemTiles items={ this.props.items } />,
-    }
-  }
-  render() {
-    return (
-      <div className="profile">
-        <BrowseMenu { ...this.props } />
-        <p>your profile</p>
-        <p>your items</p>
-        { this.state.show }
-      </div>
-    );
-  };
+const Profile = props => {
+  return (
+    <div className="profile">
+      <BrowseMenu { ...this.props } />
+      <p>your profile</p>
+      <p>your items</p>
+      <Items items={ this.props.items } isList={ this.props.isList } />
+    </div>
+  );
 }
+
+Profile.propTypes = {
+  items: PropTypes.array,
+  isList: PropTypes.bool,
+  user: PropTypes.shape({
+  	name: PropTypes.string,
+  	location: PropTypes.shape({
+  		lat: PropTypes.numeric,
+  		lon: PropTypes.numeric,
+  	})
+  })
+};
 
 export default Profile;

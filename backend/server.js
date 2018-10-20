@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 import Item, { Location, User } from './models/item';
+import moment from 'moment';
 
 // and create our instances
 const app = express();
@@ -46,7 +47,7 @@ router.post('/item', (req, res) => {
   const user = new User();
   // body parser lets us use the req.body
   console.log(req.body);
-  const { rimageURI, rtype, rlist, rtitle, rusername, rlocationLat, rlocationLon, rdescription, rpickuptime, rexpiry } = req.body;
+  const { rimageURI, rtype, rside, rtitle, rusername, rlocationLat, rlocationLon, rdescription, rprice, rpickuptime, rexpiry } = req.body;
 /*
   if (!rtype || !rlist || !rtitle || !ruser || !rlocation || !expiry) {
     // we should throw an error. we can do this check on the front end
@@ -65,13 +66,14 @@ router.post('/item', (req, res) => {
   user.location = userloc;
   item.imageURI = rimageURI;
   item.type = rtype;
-  item.list = rlist;
+  item.side = rside;
   item.title = rtitle;
   item.user = user;
   item.location = location;
   item.description = rdescription;
   item.pickuptime = rpickuptime;
-  item.expiry = rexpiry;
+  item.price = rprice;
+  item.expiry = moment(rexpiry);
   item.save(err => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
@@ -116,13 +118,15 @@ router.put('/item/:itemId', (req, res) => {
   Item.findById(itemId, (error, comment) => {
     if (error) return res.json({ success: false, error });
     const { rimageURI, rtype, rlist, rtitle, ruser, rlocationLat, rlocationLon, rdescription, rpickuptime, rexpiry } = req.body;
-    if (rimageURI) item.rimageURI = rimageURI;
-    if (rtype) item.rtype = rtype;
-    if (rlist) item.rlist = rlist;
-    if (rtitle) item.rtitle = rtitle;
-    if (ruser) item.ruser = ruser;
+    if (rimageURI) item.imageURI = rimageURI;
+    if (rtype) item.type = rtype;
+    if (rside) item.side = rside;
+    if (rlist) item.list = rlist;
+    if (rtitle) item.title = rtitle;
+//    if (ruser) item.user = ruser;
     if (rlocation) item.rlocation = rlocation;
     if (rpickuptime) item.rpickuptime = rpickuptime;
+    if (rprice) item.price = rprice
     if (rexpiry) item.rexpiry = rexpiry;
     item.save(error => {
       if (error) return res.json({ success: false, error });

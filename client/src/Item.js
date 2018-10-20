@@ -23,20 +23,26 @@ const Item = props => (
 
 Item.propTypes = {
 //  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  imageURI: PropTypes.string.isRequired, 
-  type: PropTypes.string.isRequired,
-  side: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
-  description: PropTypes.string.isRequired,
-  pickuptime: PropTypes.string.isRequired,
-//  handleLike: PropTypes.func.isRequired,
-  price: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  imageURI: PropTypes.string, 
+  type: PropTypes.string,
+  side: PropTypes.string,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    location: PropTypes.shape({
+      lat: PropTypes.numeric,
+      lon: PropTypes.numeric,
+    }),
+  }),
+  description: PropTypes.string,
+  pickuptime: PropTypes.string,
+  price: PropTypes.string,
 //  handleUnlist: PropTypes.func.isRequired,
 //  handleReport: PropTypes.func.isRequired,
-  timestamp: PropTypes.instanceOf(Date).isRequired,
-  location: PropTypes.object.isRequired,
-  expiry: PropTypes.instanceOf(Date).isRequired,
+//  handleLike: PropTypes.func.isRequired,
+  timestamp: PropTypes.instanceOf(Date),
+  location: PropTypes.object,
+  expiry: PropTypes.instanceOf(Date),
 };
 
 Item.defaultProps = {
@@ -47,11 +53,11 @@ Item.defaultProps = {
   side: "offer", //bid
   user: { _id: 9, name: "xtp", location: { lat: 52.5331358, lon: 13.4019551 }},
   description: "",
-  pickuptime: "PropTypes.string.isRequired",
-//  handleLike: PropTypes.func.isRequired,
+  pickuptime: "PropTypes.string",
   price: "0 £",
 //  handleUnlist: PropTypes.func.isRequired,
 //  handleReport: PropTypes.func.isRequired,
+//  handleLike: PropTypes.func.isRequired,
   timestamp: new Date(),
   location: { lat: 52.5331358, lon: 13.4019551 },
   expiry: new Date(),
