@@ -7,8 +7,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 import mongoose from 'mongoose';
-import Item, { Location, User } from './models/item';
+import Item, { Location, User, Image } from './models/item';
 import moment from 'moment';
+import fs from 'fs';
 
 // and create our instances
 const app = express();
@@ -23,8 +24,12 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // now we should configure the API to use bodyParser and look for JSON data in the request body
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false, useNewUrlParser: true }));
+app.use(bodyParser.json({limit: '10mb'}));
+app.use(bodyParser.raw({
+    type: 'application/octet-stream',
+    limit: '10mb'
+}));
 app.use(logger('dev'));
 
 // now we can set the route path & initialize the API
@@ -36,7 +41,10 @@ router.get('/', (req, res) => {
 router.get('/item', (req, res) => {
   Item.find((err, item) => {
     if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true, data: item });
+    var thumb = new Buffer(item[2].image.data).toString('base64');
+    //item[2].image.data = thumb;
+    console.log("item",item[2].image);
+    return res.send({ success: true, data: item });
   });
 });
 
@@ -45,9 +53,10 @@ router.post('/item', (req, res) => {
   const location = new Location();
   const userloc = new Location();
   const user = new User();
+  const image = new Image();
   // body parser lets us use the req.body
-  console.log(req.body);
-  const { rimageURI, rtype, rside, rtitle, rusername, rlocationLat, rlocationLon, rdescription, rprice, rpickuptime, rexpiry } = req.body;
+//  console.log(req.body);
+  const { rimageURI, rtype, rside, rtitle, rusername, rlocationLat, rlocationLon, rdescription, rprice, rpickuptime, rexpiry, rimage, rimagedata } = req.body;
 /*
   if (!rtype || !rlist || !rtitle || !ruser || !rlocation || !expiry) {
     // we should throw an error. we can do this check on the front end
@@ -64,6 +73,11 @@ router.post('/item', (req, res) => {
   user.name = rusername;
 //  user.name = ruser.name;
   user.location = userloc;
+  console.log("imageid",image._id);
+  //fs.appendFileSync(image._id+".jpg",rimagedata.toString(),function(err) { console.log(err) });
+  image.type = rimage.type;
+  image.name = rimage.name;
+  image.data = rimagedata;
   item.imageURI = rimageURI;
   item.type = rtype;
   item.side = rside;
@@ -74,6 +88,8 @@ router.post('/item', (req, res) => {
   item.pickuptime = rpickuptime;
   item.price = rprice;
   item.expiry = moment(rexpiry);
+  item.image = image;
+  // console.log("image",image);
   item.save(err => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
@@ -84,6 +100,13 @@ router.get('/user', (req, res) => {
   User.find((err, user) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true, data: user });
+  });
+});
+
+router.get('/image', (req, res) => {
+  Image.find((err, image) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true, data: image });
   });
 });
 
@@ -115,9 +138,9 @@ router.put('/item/:itemId', (req, res) => {
   if (!itemId) {
     return res.json({ success: false, error: 'No item id provided' });
   }
-  Item.findById(itemId, (error, comment) => {
+  Item.findById(itemId, (error, item) => {
     if (error) return res.json({ success: false, error });
-    const { rimageURI, rtype, rlist, rtitle, ruser, rlocationLat, rlocationLon, rdescription, rpickuptime, rexpiry } = req.body;
+    const { rimageURI, rtype, rlist, rtitle, ruser, rlocationLat, rlocationLon, rdescription, rpickuptime, rexpiry, rimage } = req.body;
     if (rimageURI) item.imageURI = rimageURI;
     if (rtype) item.type = rtype;
     if (rside) item.side = rside;
@@ -127,7 +150,8 @@ router.put('/item/:itemId', (req, res) => {
     if (rlocation) item.rlocation = rlocation;
     if (rpickuptime) item.rpickuptime = rpickuptime;
     if (rprice) item.price = rprice
-    if (rexpiry) item.rexpiry = rexpiry;
+    if (rexpiry) item.expiry = moment(rexpiry);
+    if (rimage) item.image = rimage;
     item.save(error => {
       if (error) return res.json({ success: false, error });
       return res.json({ success: true });
@@ -140,7 +164,7 @@ router.delete('/item/:itemId', (req, res) => {
   if (!itemId) {
     return res.json({ success: false, error: 'No item id provided' });
   }
-  Comment.remove({ _id: itemId }, (error, comment) => {
+  Item.remove({ _id: itemId }, (error, item) => {
     if (error) return res.json({ success: false, error });
     return res.json({ success: true });
   });

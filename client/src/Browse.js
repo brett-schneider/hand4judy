@@ -7,7 +7,7 @@ import Items from './Items';
 class Browse extends PureComponent {
   constructor(props) {
     super(props);
-    console.log(props);
+    console.log(this.props);
   }
   render() {
     return (

@@ -12,21 +12,33 @@ const LocationSchema = new Schema({
 
 const UserSchema = new Schema({
 	name: String, 
-	location: LocationSchema,
+	location: { type: LocationSchema, 
+							ref: "location", },
+});
+
+const ImageSchema = new Schema({
+	name: String, 
+	type: { type : String, },
+	data: Buffer,
+	path: String,
 });
 
 const ItemsSchema = new Schema({
 	title: String, 
+	image: { type: ImageSchema,
+					 ref: "image", },
 	imageURI: String, 
-	type: String,  // hygene, toy, safety, car
+	type: { type: String, },  // hygene, toy, safety, car
 	side: String,  // offer, bid
-	user: UserSchema, 
+	user: { type: UserSchema, 
+					ref: "user", },
 //	user: { name: String, location: { lat: Number. lon: Number }},
 	description: String, 
 	pickuptime: String, 
 	price: String,
 	timestamp: Date,
-	location: LocationSchema, 
+	location: { type: LocationSchema, 
+							ref: "location", },
 //	location: { lat: Number. lon: Number }, 
 	expiry: Date,
 }, { timestamps: true });
@@ -35,5 +47,6 @@ const ItemsSchema = new Schema({
 const Location = mongoose.model('Location', LocationSchema);
 const User = mongoose.model('User', UserSchema);
 const Item = mongoose.model('Item', ItemsSchema);
-export { Location, User };
+const Image = mongoose.model('Image', ImageSchema);
+export { Location, User, Image };
 export default Item;

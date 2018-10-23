@@ -50,7 +50,6 @@ class App extends PureComponent {
 //    if (!rtype || !rlist || !rtitle || !ruser || !rlocation || !rexpiry) return;
 //    if (!rtype || !rlist || !rtitle || !rexpiry) return;
     console.log(JSON.stringify(fdata));
-    console.log(callback);
     fetch('/api/item', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -64,7 +63,7 @@ class App extends PureComponent {
 //  }
   componentDidMount() {
     // this should not be here, maybe in places where data is shown
-    this.loadCommentsFromServer();
+    this.loadItemsFromServer();
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadCommentsFromServer, 20000);
     }
@@ -75,7 +74,7 @@ class App extends PureComponent {
     this.pollInterval = null;
   }
 
-  loadCommentsFromServer = () => {
+  loadItemsFromServer = () => {
     // fetch returns a promise. If you are not familiar with promises, see
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 

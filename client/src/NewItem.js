@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
+
 class NewItem extends PureComponent {
 	constructor(props) {
     super(props);
@@ -31,26 +32,39 @@ class NewItem extends PureComponent {
     const newState = { ...this.state };
     newState[e.target.name] = e.target.value;
     //console.log(newState);
-    this.setState(newState, console.log(JSON.stringify(this.state)));
-
+    this.setState(newState, console.log(this.state));
   }
-  handleFormImage = (p) => {
-    console.log("handleFormImage");
-    const newState = this.state;
-    newState.rimage = p;
-    this.setState(newState, console.log(JSON.stringify(this.state)));
-  }
+//  handleFormImage = (p) => {
+//    console.log("handleFormImage");
+//    const newState = this.state;
+//    newState.rimage = p;
+//    this.setState(newState, console.log(JSON.stringify(this.state)));
+//  }
   handleSubmitButton = (i) => {
     i.preventDefault();
     console.log("trying to submit...NewItem.handleSubmitButton");
     this.props.handleSubmitItem(this.state,this.clearForm.bind(this));
   }
+  handleFileRead = (f) => {
+    console.log("f.target.result",f.target.result);
+    let data = f.target.result;
+    console.log(btoa(f.target.result));
+    this.setState({ rimagedata : data });
+  }
   onDrop(rimage) {
-    console.log(rimage[0].preview);
-    this.setState({ rimage });
-    this.setState({ dropstyle : { background: rimage[0].preview, width: "100px", heigh: "100px", }})
+    let fr = new FileReader();
+    fr.onloadend = this.handleFileRead;
+    fr.readAsArrayBuffer(rimage[0]);
+    // console.log(rimage[0].preview);
+    this.setState({ rimage : { name : rimage[0].name, type: rimage[0].type, }});
+    console.log(rimage);
+    // let url = rimage && URL.createObjectURL(rimage[0]);
+    let url = rimage && rimage[0].preview;
+    this.setState({ url });
+    //this.setState({ dropstyle : { background: rimage[0].preview, width: "100px", heigh: "100px", }})
   }
   clearForm() {
+    console.log("clearForm");
     this.setState({ rimageURI: '',
                     rimage: [],
                     rtype: '',
@@ -66,6 +80,7 @@ class NewItem extends PureComponent {
                     rpickuptime: '',
                     rexpiry: '',
                     rtimestamp: '',
+                    rimagedata: '',
 //                    handleSubmitItem: props.handleSubmitItem,
                    });
   }
@@ -73,13 +88,17 @@ class NewItem extends PureComponent {
     const typeSelect = this.props.types.map(t => (
       <option key={t._id} value={ t._id }>{ t.name }</option>
     ));
+    const Cimg = (props) => { if (typeof props.src !== 'undefined') return (<img width="100" src={ props.src } alt={ props.src } />); return null}
     return (
     	<form onSubmit={ (i) => { this.handleSubmitButton(i) }}>
     	  <Dropzone name="rimage"
-               //   accept="image/jpeg, image/png"
+                  accept="image/*"
                   onDrop={ this.onDrop.bind(this) }
                   style={ this.state.dropstyle }
+                  multiple={ false }
+
                   >
+          <Cimg src={ this.state.url } alt="no image" />
         </Dropzone>
     	  <input type="text"
     	         name="rtitle"
