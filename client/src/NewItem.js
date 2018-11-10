@@ -46,9 +46,8 @@ class NewItem extends PureComponent {
     this.props.handleSubmitItem(this.state,this.clearForm.bind(this));
   }
   handleFileRead = (f) => {
-    console.log("f.target.result",f.target.result);
+    //console.log("f.target.result",f.target.result);
     let data = f.target.result;
-    console.log(btoa(f.target.result));
     this.setState({ rimagedata : data });
   }
   onDrop(rimage) {

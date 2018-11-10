@@ -59,20 +59,17 @@ class App extends PureComponent {
       else callback();
     });
   }
+
+  loginUser() {
+    fetch('/api/login')
+      .then(res => res.json())
+      .then((res) => {
+        if (!res.success) this.setState({ error: res.error.message || res.error });
+        else this.setState({ user: res.data });
+      });
+  }
 //  handleUnlistItem = (i) => {
 //  }
-  componentDidMount() {
-    // this should not be here, maybe in places where data is shown
-    this.loadItemsFromServer();
-    if (!this.pollInterval) {
-      this.pollInterval = setInterval(this.loadCommentsFromServer, 20000);
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.pollInterval) clearInterval(this.pollInterval);
-    this.pollInterval = null;
-  }
 
   loadItemsFromServer = () => {
     // fetch returns a promise. If you are not familiar with promises, see
@@ -87,6 +84,20 @@ class App extends PureComponent {
         if (!res.success) this.setState({ error: res.error });
         else this.setState({ items: res.data });
       });
+  }
+
+  componentDidMount() {
+    // this should not be here, maybe in places where data is shown
+    this.loginUser();
+    this.loadItemsFromServer();
+    if (!this.pollInterval) {
+      this.pollInterval = setInterval(this.loadCommentsFromServer, 20000);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.pollInterval) clearInterval(this.pollInterval);
+    this.pollInterval = null;
   }
 
   render() {
@@ -110,23 +121,6 @@ class App extends PureComponent {
       </div>
     );
   }
-
-  // commentbox.js
-  /*
-  render() {
-    return (
-      <div className="container">
-        <div className="comments">
-          <h2>Comments:</h2>
-          <CommentList data={DATA} />
-        </div>
-        <div className="form">
-          <CommentForm />
-        </div>
-      </div>
-    );
-  }
-  */
 }
 
 export default App;

@@ -14,6 +14,8 @@ const UserSchema = new Schema({
 	name: String, 
 	location: { type: LocationSchema, 
 							ref: "location", },
+	pass: String,
+	email: String,
 });
 
 const ImageSchema = new Schema({

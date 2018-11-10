@@ -10,6 +10,8 @@ import mongoose from 'mongoose';
 import Item, { Location, User, Image } from './models/item';
 import moment from 'moment';
 import fs from 'fs';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
 // and create our instances
 const app = express();
@@ -41,9 +43,7 @@ router.get('/', (req, res) => {
 router.get('/item', (req, res) => {
   Item.find((err, item) => {
     if (err) return res.json({ success: false, error: err });
-    var thumb = new Buffer(item[2].image.data).toString('base64');
-    //item[2].image.data = thumb;
-    console.log("item",item[2].image);
+    //console.log("item",item[2].image);
     return res.send({ success: true, data: item });
   });
 });
@@ -73,7 +73,7 @@ router.post('/item', (req, res) => {
   user.name = rusername;
 //  user.name = ruser.name;
   user.location = userloc;
-  console.log("imageid",image._id);
+  //console.log("imageid",image._id);
   //fs.appendFileSync(image._id+".jpg",rimagedata.toString(),function(err) { console.log(err) });
   image.type = rimage.type;
   image.name = rimage.name;
@@ -171,5 +171,59 @@ router.delete('/item/:itemId', (req, res) => {
 });
 // Use our router configuration when we call /api
 app.use('/api', router);
+
+// session handling cookie monster
+//const store = session.Store();
+const MongoStore = require('connect-mongo')(session);
+app.use(cookieParser());
+app.use(session({
+    key: 'user_sid',
+    secret: getSecret('session'),
+    resave: false,
+    rolling: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: 600000,
+    },
+    store: new MongoStore({ mongooseConnection: db }),
+})); 
+
+// remove user session cookie if server has no corresponding session
+app.use((req, res, next) => {
+    if (req.cookies.user_sid && !req.session.user) {
+        res.clearCookie('user_sid');        
+    }
+    next();
+});
+
+var sessionChecker = (req, res, next) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.redirect('/dashboard');
+    } else {
+        next();
+    }    
+};
+
+router.get('/login', (req, res) => {
+  const { username, userpass } = req.body;
+  if (!username || !userpass) {
+    // we should throw an error. we can do this check on the front end
+    return res.json({
+      success: false,
+      error: 'null: name or pass'
+    });
+  }
+  User.find({ name: username }, (err, user) => {
+    if (err) return res.json({ success: false, error: err });
+    // SET COOKIE YO
+    return res.json({ success: true, data: [] });
+  });
+});
+
+router.get('/logout', (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.clearCookie('user_sid');
+    }
+});
 
 app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));
