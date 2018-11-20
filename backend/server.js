@@ -227,3 +227,7 @@ router.get('/logout', (req, res) => {
 });
 
 app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));
+
+// this is supposedly required
+const path = require(“path”);
+app.use(express.static(path.join(__dirname, “client/build”)))
