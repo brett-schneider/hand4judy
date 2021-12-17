@@ -89,7 +89,7 @@ class App extends PureComponent {
   componentDidMount() {
     // this should not be here, maybe in places where data is shown
     this.loginUser();
-    this.loadItemsFromServer();
+    // this.loadItemsFromServer();
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadCommentsFromServer, 20000);
     }
